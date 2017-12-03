@@ -60,18 +60,18 @@ module.exports = {
 		},
 
 
-		//	call "produit.get" --id_produit
+		//	call "produit.get" --id_product
 		get: {
 			params: {
-				id_produit: "string"
+				id_product: "string"
 			},
 			handler(ctx) {
-				return ctx.call("produits.verify", { id_produit: ctx.params.id_produit})
+				return ctx.call("produits.verify", { id_product: ctx.params.id_product})
 				.then((exists) => {
 					if (exists) {
 						return Database()
 							.then((db) => {
-								var product = db.get("produits").find({ id: ctx.params.id_produit }).value();;
+								var product = db.get("produits").find({ id: ctx.params.id_product }).value();;
 								return product;
 							})
 							.catch(() => {
@@ -84,35 +84,35 @@ module.exports = {
 			}
 		},
 
-		//	call "produits.verify" --id_produit
+		//	call "produits.verify" --id_product
 		verify: {
 			params: {
-				id_produit: "string"
+				id_product: "string"
 			},
 			handler(ctx) {
 				return Database()
 					.then((db) => {
 						var value = db.get("produits")
-										.filter({ id: ctx.params.id_produit})
+										.filter({ id: ctx.params.id_product})
 										.value();
 						return value.length > 0 ? true : false;
 					})
 			}
 		},
 
-		//	call "produits.edit" --id_produit  --title --description --price 
+		//	call "produits.edit" --id_product  --title --description --price 
 		edit: {
 			params: {
-				id_produit: "string",
+				id_product: "string",
 				title: "string",
 				description: "string",
 				price: "number"				
 			},
 			handler(ctx) {
-				return ctx.call("produits.verify", { id_produit: ctx.params.id_produit})
+				return ctx.call("produits.verify", { id_product: ctx.params.id_product})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("produits.get", { id_produit: ctx.params.id_produit })
+						return ctx.call("produits.get", { id_product: ctx.params.id_product })
 								.then((db_produit) => {
 									//
 									var produit = new Models.Produit(db_produit).create();
@@ -123,7 +123,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("produits")
-												.find({ id: ctx.params.id_produit })
+												.find({ id: ctx.params.id_product })
 												.assign(produit)
 												.write()
 												.then(() => {
@@ -141,16 +141,16 @@ module.exports = {
 				});
 			}
 		},
-		//	call "produits.quantityIncrement" --id_produit
+		//	call "produits.quantityIncrement" --id_product
 		quantityIncrement: {
 			params: {
-				id_produit: "string"		
+				id_product: "string"		
 			},
 			handler(ctx) {
-				return ctx.call("produits.verify", { id_produit: ctx.params.id_produit})
+				return ctx.call("produits.verify", { id_product: ctx.params.id_product})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("produits.get", { id_produit: ctx.params.id_produit })
+						return ctx.call("produits.get", { id_product: ctx.params.id_product })
 								.then((db_produit) => {
 									//
 									var produit = new Models.Produit(db_produit).create();
@@ -159,7 +159,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("produits")
-												.find({ id: ctx.params.id_produit })
+												.find({ id: ctx.params.id_product })
 												.assign(produit)
 												.write()
 												.then(() => {
@@ -177,16 +177,16 @@ module.exports = {
 				});
 			}
 		},
-		//	call "produits.quantityDecrement" --id_produit
+		//	call "produits.quantityDecrement" --id_product
 		quantityDecrement: {
 			params: {
-				id_produit: "string"		
+				id_product: "string"		
 			},
 			handler(ctx) {
-				return ctx.call("produits.verify", { id_produit: ctx.params.id_produit})
+				return ctx.call("produits.verify", { id_product: ctx.params.id_product})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("produits.get", { id_produit: ctx.params.id_produit })
+						return ctx.call("produits.get", { id_product: ctx.params.id_product })
 								.then((db_produit) => {
 									//
 									var produit = new Models.Produit(db_produit).create();
@@ -195,7 +195,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("produits")
-												.find({ id: ctx.params.id_produit })
+												.find({ id: ctx.params.id_product })
 												.assign(produit)
 												.write()
 												.then(() => {

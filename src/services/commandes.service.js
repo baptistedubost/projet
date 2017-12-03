@@ -15,10 +15,10 @@ module.exports = {
 
 	actions: {
 
-		//	call "commandes.create" --id_utilisateur "dsdfedv1" 
+		//	call "commandes.create" --id_user "dsdfedv1" 
 		create: {
 			params: {
-				id_utilisateur: "string"
+				id_user: "string"
 			},
 			handler(ctx) {
 				var commande = new Models.Commande(ctx.params).create();
@@ -30,7 +30,7 @@ module.exports = {
 								.push(commande)
 								.write()
 								.then(() => {
-									return [commande.id,commande.id_utilisateur]
+									return [commande.id_order,commande.id_user]
 								})
 								.catch(() => {
 									return new MoleculerError("commandes", 500, "ERR_CRITIAL", { code: 500, message: "Critical error" } )
@@ -56,18 +56,18 @@ module.exports = {
 		},
 
 
-		//	call "commandes.getUtilisateur" --id_utilisateur
+		//	call "commandes.getUtilisateur" --id_user
 		getUtilisateur: {
 			params: {
-				id_utilisateur: "string"
+				id_user: "string"
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verifyUtilisateur", { id_utilisateur: ctx.params.id_utilisateur})
+				return ctx.call("commandes.verifyUtilisateur", { id_user: ctx.params.id_user})
 				.then((exists) => {
 					if (exists) {
 						return Database()
 							.then((db) => {
-								var comm = db.get("commandes").filter({ id_utilisateur: ctx.params.id_utilisateur }).map('id').value();;
+								var comm = db.get("commandes").filter({ id_user: ctx.params.id_user }).map('id_order').value();;
 								return comm;
 							}).catch(() => {
 								return new MoleculerError("commandes", 500, "ERR_CRITIAL", { code: 500, message: "Critical error" } )
@@ -78,18 +78,18 @@ module.exports = {
 				})
 			}
 		},
-		//	call "commandes.getCommande" --id_commande
+		//	call "commandes.getCommande" --id_order
 		getCommande: {
 			params: {
-				id_commande: "string"
+				id_order: "string"
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verifyCommande", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verifyCommande", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
 						return Database()
 							.then((db) => {
-								var comm = db.get("commandes").filter({ id: ctx.params.id_commande }).value();;
+								var comm = db.get("commandes").filter({ id_order: ctx.params.id_order }).value();;
 								return comm;
 							}).catch(() => {
 								return new MoleculerError("commandes", 500, "ERR_CRITIAL", { code: 500, message: "Critical error" } )
@@ -100,63 +100,63 @@ module.exports = {
 				})
 			}
 		},
-		//	call "commandes.verifyUtilisateur" --id_utilisateur
+		//	call "commandes.verifyUtilisateur" --id_user
 		verifyUtilisateur: {
 			params: {
-				id_utilisateur: "string"
+				id_user: "string"
 			},
 			handler(ctx) {
 				return Database()
 					.then((db) => {
 						var value = db.get("commandes")
-										.filter({ id_utilisateur: ctx.params.id_utilisateur})
+										.filter({ id_user: ctx.params.id_user})
 										.value();
 						return value.length > 0 ? true : false;
 					})
 			}
 		},
-		//	call "commandes.verifyCommande" --id_commande
+		//	call "commandes.verifyCommande" --id_order
 		verifyCommande: {
 			params: {
-				id_commande: "string"
+				id_order: "string"
 			},
 			handler(ctx) {
 				return Database()
 					.then((db) => {
 						var value = db.get("commandes")
-										.filter({ id: ctx.params.id_commande})
+										.filter({ id_order: ctx.params.id_order})
 										.value();
 						return value.length > 0 ? true : false;
 					})
 			}
 		},
-		//	call "commandes.verify" --id_commande
+		//	call "commandes.verify" --id_order
 		verify: {
 			params: {
-				id_commande: "string"
+				id_order: "string"
 			},
 			handler(ctx) {
 				return Database()
 					.then((db) => {
 						var value = db.get("commandes")
-										.filter({ id: ctx.params.id_commande})
+										.filter({ id_order: ctx.params.id_order})
 										.value();
 						return value.length > 0 ? true : false;
 					})
 			}
 		},
-				//	call "produit.get" --id_commande
+				//	call "produit.get" --id_order
 		get: {
 			params: {
-				id_commande: "string"
+				id_order: "string"
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
 						return Database()
 							.then((db) => {
-								var comm = db.get("commandes").find({ id: ctx.params.id_commande }).value();;
+								var comm = db.get("commandes").find({ id_order: ctx.params.id_order }).value();;
 								return comm;
 							})
 							.catch(() => {
@@ -169,16 +169,16 @@ module.exports = {
 			}
 		},
 
-		//	call "commandes.editIncrement" --id_commande 
+		//	call "commandes.editIncrement" --id_order 
 		editIncrement: {
 			params: {
-				id_commande: "string",			
+				id_order: "string",			
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("commandes.get", { id_commande: ctx.params.id_commande })
+						return ctx.call("commandes.get", { id_order: ctx.params.id_order })
 								.then((db_commande) => {
 									//
 									var commande = new Models.Commande(db_commande).create();
@@ -186,7 +186,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("commandes")
-												.find({ id: ctx.params.id_commande })
+												.find({ id: ctx.params.id_order })
 												.assign(commande)
 												.write()
 												.then(() => {
@@ -204,24 +204,26 @@ module.exports = {
 				});
 			}
 		},
-		//	call "commandes.editDecrement" --id_commande 
+		//	call "commandes.editDecrement" --id_order 
 		editDecrement: {
 			params: {
-				id_commande: "string",			
+				id_order: "string",			
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("commandes.get", { id_commande: ctx.params.id_commande })
+						return ctx.call("commandes.get", { id_order: ctx.params.id_order })
 								.then((db_commande) => {
 									//
 									var commande = new Models.Commande(db_commande).create();
-									commande.quantity = db_commande.quantity -1;						
+									if (db_commande != 0){
+									commande.quantity = db_commande.quantity -1;	
+									}					
 									return Database()
 										.then((db) => {
 											return db.get("commandes")
-												.find({ id: ctx.params.id_commande })
+												.find({ id: ctx.params.id_order })
 												.assign(commande)
 												.write()
 												.then(() => {
@@ -239,18 +241,18 @@ module.exports = {
 				});
 			}
 		},
-		//commandes.validation --id_commande
+		//commandes.validation --id_order
 		validation: {
 			params: {
-				id_commande: "string"
+				id_order: "string"
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
 						return Database()
 							.then((db) => {
-								var comm = db.get("commandes").find({ id: ctx.params.id_commande }).value();;
+								var comm = db.get("commandes").find({ id: ctx.params.id_order }).value();;
 								return comm;
 							})
 							.catch(() => {
@@ -262,16 +264,16 @@ module.exports = {
 				})
 			}
 		},
-		//	call "commandes.quantityIncrement" --id_commande
+		//	call "commandes.quantityIncrement" --id_order
 		quantityIncrement: {
 			params: {
-				id_commande: "string"		
+				id_order: "string"		
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("commandes.get", { id_commande: ctx.params.id_commande })
+						return ctx.call("commandes.get", { id_order: ctx.params.id_order })
 								.then((db_commande) => {
 									//
 									var commande = new Models.commande(db_commande).create();
@@ -280,7 +282,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("commandes")
-												.find({ id: ctx.params.id_commande })
+												.find({ id: ctx.params.id_order })
 												.assign(commande)
 												.write()
 												.then(() => {
@@ -298,16 +300,16 @@ module.exports = {
 				});
 			}
 		},
-		//	call "commandes.quantityDecrement" --id_commande
+		//	call "commandes.quantityDecrement" --id_order
 		quantityDecrement: {
 			params: {
-				id_commande: "string"		
+				id_order: "string"		
 			},
 			handler(ctx) {
-				return ctx.call("commandes.verify", { id_commande: ctx.params.id_commande})
+				return ctx.call("commandes.verify", { id_order: ctx.params.id_order})
 				.then((exists) => {
 					if (exists) {
-						return ctx.call("commandes.get", { id_commande: ctx.params.id_commande })
+						return ctx.call("commandes.get", { id_order: ctx.params.id_order })
 								.then((db_commande) => {
 									//
 									var commande = new Models.commande(db_commande).create();
@@ -316,7 +318,7 @@ module.exports = {
 									return Database()
 										.then((db) => {
 											return db.get("commandes")
-												.find({ id: ctx.params.id_commande })
+												.find({ id: ctx.params.id_order })
 												.assign(commande)
 												.write()
 												.then(() => {

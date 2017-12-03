@@ -91,7 +91,7 @@ module.exports = {
 			}
 		},
 
-		//	call "utilisateurs.verify" --id_utilisateur
+		//	call "utilisateurs.verify" --id_user
 		verify: {
 			params: {
 				email: "string"
