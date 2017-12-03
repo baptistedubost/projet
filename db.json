@@ -1,0 +1,90 @@
+{
+  "todos": [
+    {
+      "id": "afb01be2-759e-4480-a9ec-6ff81a611834",
+      "name": "Nope",
+      "completed": false
+    },
+    {
+      "id": "83de750e-7b0d-4828-82d3-a0c39bdba8e4",
+      "name": "hello",
+      "completed": false
+    }
+  ],
+  "utilisateur": [],
+  "utilisateurs": [
+    {
+      "id": "ef06ed12-0e2a-42da-97bb-bb5bbc030981",
+      "name": "coucou",
+      "completed": false
+    },
+    {
+      "id": "8d17b97c-17ac-4e30-ad5b-78f773a738b5",
+      "lastName": "mariage",
+      "firstName": "anais",
+      "email": "mmm",
+      "completed": false
+    },
+    {
+      "id": "0539f104-150b-4c22-9161-9570f5c05859",
+      "lastName": "jjj",
+      "firstName": "lala",
+      "email": "mmm",
+      "completed": false
+    },
+    {
+      "id_utilisateur": "860fb360-ac0d-4830-8c68-c310605db5b1",
+      "lastName": "dubost",
+      "firstName": "baptiste",
+      "email": "mail@gmail.com"
+    }
+  ],
+  "produits": [
+    {
+      "id": "95f06649-5435-44ce-a6c2-c40695139f6e",
+      "title": "produit1",
+      "description": "ca marche",
+      "price": 56
+    },
+    {
+      "id": "67a37ebe-6237-484a-9711-a7a7d3cd21a4",
+      "title": "modifProduit",
+      "description": "ca marche",
+      "price": 45,
+      "quantity": 0
+    },
+    {
+      "id": "57f4c991-2f2a-414d-a05d-384ae4f124f1",
+      "title": "telephone",
+      "description": "iphoneX",
+      "price": 1300,
+      "quantity": 6
+    }
+  ],
+  "commandes": [
+    {
+      "id": "4978cb2b-2c97-4e28-9faf-89644540fda4",
+      "id_utilisateur": "8d17b97c-17ac-4e30-ad5b-78f773a738b5",
+      "id_produit": "",
+      "quantity": 0
+    },
+    {
+      "id": "55dee415-d059-462a-9248-6026bcbdcb54",
+      "id_utilisateur": "8d17b97c-17ac-4e30-ad5b-78f773a738b5",
+      "id_produit": "",
+      "quantity": 0
+    },
+    {
+      "id": "695df3cf-c320-4274-80e4-6e0009447b3d",
+      "id_utilisateur": "8d17b97c-17ac-4e30-ad5b-78f773a738b5",
+      "id_produit": "",
+      "quantity": 0
+    },
+    {
+      "id_commande": "0c5de071-a224-4709-b040-e26b185c9b7a",
+      "id_utilisateur": "8d17b97c-17ac-4e30-ad5b-78f773a738b5",
+      "id_produit": "",
+      "quantity": 0
+    }
+  ]
+}
